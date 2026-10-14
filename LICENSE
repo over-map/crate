@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Third-party components keep their own licences. The pipeline uses Essentia
-(AGPL-3.0) and the MTG models (CC BY-NC-SA 4.0, non-commercial), and data from
-Spotify, Deezer, Last.fm and Discogs under those services' API terms. See
-docs/handoff/ownership-and-licensing.md.
