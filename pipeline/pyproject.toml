@@ -1,0 +1,38 @@
+[project]
+name = "crate"
+version = "0.1.0"
+description = "Crate pipeline: tag a Spotify library, build Now and Weekly Mix playlists"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+  "httpx>=0.27,<1",
+  "numpy>=1.26,<3",
+]
+
+[project.optional-dependencies]
+# Audio analysis. 2.1b6.dev1389 is the newest release with cp311 wheels for both
+# manylinux x86_64 (Actions) and macOS arm64 (local backfill). Checked 2026-10-11.
+audio = ["essentia-tensorflow==2.1b6.dev1389"]
+
+[project.scripts]
+crate = "crate.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["crate"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["SIM102"]  # one condition per field reads better in the query engine
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug only: pins a widget to the home screen from adb, for checking widget states on the emulator. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity
+            android:name=".widget.PinWidgetActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Crate.Share" />
+    </application>
+</manifest>

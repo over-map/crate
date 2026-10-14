@@ -1,0 +1,13 @@
+{
+ "schema": 1,
+ "description": "Fill in during M1: 30 tracks you label by hand. `style` is the canonical Genre---Style you consider the track's main style. `estimates` is filled by `crate report` tooling later; leave it out.",
+ "tracks": [
+  {
+   "id": "<spotify_track_id>",
+   "title": "example, delete me",
+   "bpm": 138,
+   "energy": 7,
+   "style": "Electronic---Breakbeat"
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+# Runs in the PRIVATE data repo (over-map/crate-data). The code comes from the public repo.
+name: health
+on:
+  workflow_run: { workflows: [nightly], types: [completed] }
+  schedule: [{ cron: "0 6 * * *" }] # also runs if nightly never started
+  workflow_dispatch:
+concurrency: { group: crate-data, cancel-in-progress: false }
+permissions: { contents: write }
+env:
+  CRATE_CODE_REPO: ${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}
+  SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+  GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+  LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+  NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+  # Expiry dates (YYYY-MM-DD) recorded as repository variables when each token is created.
+  GH_SECRETS_PAT_EXPIRES: ${{ vars.GH_SECRETS_PAT_EXPIRES }}
+  APP_PAT_EXPIRES: ${{ vars.APP_PAT_EXPIRES }}
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the code (public repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { repository: "${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}" }
+      - name: Check out the data (this private repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { path: private }
+      - name: Link the data into the code checkout
+        run: ln -s private/data data && ln -s private/backup backup
+      - uses: ./.github/actions/setup
+      - name: Health check
+        id: check
+        working-directory: pipeline
+        run: uv run crate health
+        continue-on-error: true
+      - uses: ./.github/actions/commit
+        with: { directory: private, message: "health: daily check", paths: data/health.json }
+      - if: steps.check.outcome == 'failure'
+        run: exit 1

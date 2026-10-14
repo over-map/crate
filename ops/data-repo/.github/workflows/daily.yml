@@ -1,0 +1,48 @@
+# Runs in the PRIVATE data repo (over-map/crate-data). The code comes from the public repo.
+name: daily
+# Crate Daily, every morning. 03:30 UTC starts at 04:30 (winter) / 05:30 (summer) Amsterdam; it takes about
+# 15 minutes, so the mix is ready before 06:00 all year.
+on:
+  schedule: [{ cron: "30 3 * * *" }]
+  workflow_dispatch:
+concurrency: { group: crate-data, cancel-in-progress: false }
+permissions: { contents: write }
+env:
+  CRATE_CODE_REPO: ${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}
+  SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+  GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+  LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+  LISTENBRAINZ_TOKEN: ${{ secrets.LISTENBRAINZ_TOKEN }}
+  NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+  CRATE_MODELS_MIRROR: ${{ vars.CRATE_MODELS_MIRROR }}
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - run: echo "START=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Check out the code (public repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { repository: "${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}" }
+      - name: Check out the data (this private repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { path: private }
+      - name: Link the data into the code checkout
+        run: ln -s private/data data && ln -s private/backup backup
+      - uses: ./.github/actions/setup
+        with: { audio: "true" }
+      - name: Build Crate Daily
+        working-directory: pipeline
+        run: uv run crate daily
+      - uses: ./.github/actions/commit
+        with: { directory: private, message: "daily: Crate Daily" }
+      - name: Minutes used
+        if: always()
+        run: |
+          echo "Minutes used: $(( ($(date +%s) - START + 59) / 60 ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Alert on failure
+        if: failure()
+        run: |
+          curl -s -H "Title: Crate problem" -H "Priority: high" -d "Crate Daily failed → docs/runbook.md#weekly-failed" "https://ntfy.sh/$NTFY_TOPIC"

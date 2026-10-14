@@ -1,0 +1,35 @@
+{
+ "schema": 1,
+ "description": "Musical key -> Camelot, and compatible sets. Python (keys.py) and Swift (Camelot.swift) must agree.",
+ "keys": [
+  {"tonic": "G#", "scale": "minor", "camelot": "1A"},  {"tonic": "B",  "scale": "major", "camelot": "1B"},
+  {"tonic": "D#", "scale": "minor", "camelot": "2A"},  {"tonic": "F#", "scale": "major", "camelot": "2B"},
+  {"tonic": "A#", "scale": "minor", "camelot": "3A"},  {"tonic": "C#", "scale": "major", "camelot": "3B"},
+  {"tonic": "F",  "scale": "minor", "camelot": "4A"},  {"tonic": "G#", "scale": "major", "camelot": "4B"},
+  {"tonic": "C",  "scale": "minor", "camelot": "5A"},  {"tonic": "D#", "scale": "major", "camelot": "5B"},
+  {"tonic": "G",  "scale": "minor", "camelot": "6A"},  {"tonic": "A#", "scale": "major", "camelot": "6B"},
+  {"tonic": "D",  "scale": "minor", "camelot": "7A"},  {"tonic": "F",  "scale": "major", "camelot": "7B"},
+  {"tonic": "A",  "scale": "minor", "camelot": "8A"},  {"tonic": "C",  "scale": "major", "camelot": "8B"},
+  {"tonic": "E",  "scale": "minor", "camelot": "9A"},  {"tonic": "G",  "scale": "major", "camelot": "9B"},
+  {"tonic": "B",  "scale": "minor", "camelot": "10A"}, {"tonic": "D",  "scale": "major", "camelot": "10B"},
+  {"tonic": "F#", "scale": "minor", "camelot": "11A"}, {"tonic": "A",  "scale": "major", "camelot": "11B"},
+  {"tonic": "C#", "scale": "minor", "camelot": "12A"}, {"tonic": "E",  "scale": "major", "camelot": "12B"},
+  {"tonic": "Ab", "scale": "minor", "camelot": "1A"},  {"tonic": "Eb", "scale": "minor", "camelot": "2A"},
+  {"tonic": "Bb", "scale": "major", "camelot": "6B"},  {"tonic": "Db", "scale": "major", "camelot": "3B"},
+  {"tonic": "Gb", "scale": "major", "camelot": "2B"}
+ ],
+ "names": [
+  {"camelot": "8A", "name": "A minor"}, {"camelot": "8B", "name": "C major"},
+  {"camelot": "1A", "name": "A♭ minor"}, {"camelot": "12A", "name": "D♭ minor"},
+  {"camelot": "2B", "name": "F♯ major"}, {"camelot": "6B", "name": "B♭ major"}
+ ],
+ "compatible": [
+  {"camelot": "8A",  "set": ["8A", "7A", "9A", "8B"]},
+  {"camelot": "1A",  "set": ["1A", "12A", "2A", "1B"]},
+  {"camelot": "12A", "set": ["12A", "11A", "1A", "12B"]},
+  {"camelot": "12B", "set": ["12B", "11B", "1B", "12A"]},
+  {"camelot": "1B",  "set": ["1B", "12B", "2B", "1A"]},
+  {"camelot": "6B",  "set": ["6B", "5B", "7B", "6A"]}
+ ],
+ "invalid": ["0A", "13A", "8C", "A8", "", "8"]
+}

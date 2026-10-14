@@ -1,0 +1,2134 @@
+{
+ "schema": 1,
+ "description": "Shared query vectors. Python (pipeline/tests/test_query_vectors.py) and Swift (CrateKit tests) must both pass every case. 'matches' is the full match set (order-free); 'count' is the size of the sampled result = min(limit, len(matches)). See docs/query-semantics.md. Vibes: see docs/query-semantics.md#vibes. Tags: see docs/query-semantics.md#tags.",
+ "constants": {
+  "MOOD_THRESHOLD": 0.5,
+  "VOCAL_THRESHOLD": 0.5,
+  "DEFAULT_LIMIT": 100,
+  "VIBE_DEFAULT_SHARE": 0.2,
+  "VIBE_NEGATIVE_WEIGHT": 0.2,
+  "VIBE_ENERGY_MARGIN": 1,
+  "VIBE_ENERGY_OUTLIER": 4,
+  "VIBE_ENERGY_MIN_SEEDS": 3
+ },
+ "tracks": {
+  "t01": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Breakbeat": 0.58,
+     "Electronic---Techno": 0.44,
+     "Electronic---Hardcore": 0.21
+    },
+    "bpm": 138.0,
+    "key": "8A",
+    "energy": 7,
+    "moods": {
+     "dark": 0.81,
+     "energetic": 0.66,
+     "hypnotic": 0.4
+    },
+    "vocal": 0.12
+   },
+   "vector": [
+    1,
+    0,
+    0.1
+   ],
+   "tags": [
+    "Dub Techno",
+    "minimal techno",
+    "German"
+   ],
+   "family": "techno"
+  },
+  "t02": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Breakbeat": 0.21,
+     "Electronic---Techno": 0.53
+    },
+    "bpm": 140.0,
+    "key": "9A",
+    "energy": 8,
+    "moods": {
+     "dark": 0.7,
+     "hypnotic": 0.6
+    },
+    "vocal": 0.05
+   },
+   "vector": [
+    0.9,
+    0.1,
+    0
+   ],
+   "tags": [
+    "deep techno",
+    "Germany"
+   ],
+   "family": "techno"
+  },
+  "t03": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Rock---Industrial": 0.45,
+     "Electronic---Breakbeat": 0.4
+    },
+    "bpm": 69.0,
+    "key": "8B",
+    "energy": 9,
+    "moods": {
+     "aggressive": 0.8,
+     "dark": 0.55
+    },
+    "vocal": 0.7
+   },
+   "vector": [
+    0.8,
+    0,
+    0.3
+   ],
+   "family": "techno"
+  },
+  "t04": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Drum n Bass": 0.7
+    },
+    "bpm": 174.0,
+    "key": "1A",
+    "energy": 9,
+    "moods": {
+     "energetic": 0.9
+    },
+    "vocal": 0.3
+   },
+   "vector": [
+    0.6,
+    0.4,
+    0
+   ],
+   "family": "breaks & bass"
+  },
+  "t05": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Deep House": 0.6,
+     "Electronic---House": 0.3
+    },
+    "bpm": 122.0,
+    "key": "12A",
+    "energy": 5,
+    "moods": {
+     "relaxing": 0.6,
+     "happy": 0.5
+    },
+    "vocal": 0.6
+   },
+   "vector": [
+    0.2,
+    1,
+    0
+   ],
+   "artists": [
+    "Sun Band"
+   ],
+   "tags": [
+    "Italy",
+    "disco"
+   ],
+   "family": "house"
+  },
+  "t06": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Hip Hop---Boom Bap": 0.8
+    },
+    "bpm": 90.0,
+    "key": "5A",
+    "energy": 4,
+    "moods": {
+     "dark": 0.3,
+     "relaxing": 0.7
+    },
+    "vocal": 0.9
+   },
+   "vector": [
+    0,
+    1,
+    0.2
+   ],
+   "tags": [
+    "Italian",
+    "Hip-Hop"
+   ],
+   "family": "hip hop"
+  },
+  "t07": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Trip Hop": 0.5,
+     "Electronic---Downtempo": 0.45
+    },
+    "bpm": 95.0,
+    "key": "2A",
+    "energy": 3,
+    "moods": {
+     "melancholic": 0.75,
+     "dreamy": 0.62
+    },
+    "vocal": 0.4
+   },
+   "vector": [
+    0.1,
+    0.3,
+    1
+   ],
+   "tags": [
+    "Brasil",
+    "downtempo"
+   ],
+   "family": "downtempo"
+  },
+  "t08": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Rock---Shoegaze": 0.66
+    },
+    "bpm": 105.0,
+    "key": "3B",
+    "energy": 6,
+    "moods": {
+     "dreamy": 0.8
+    },
+    "vocal": 0.55
+   },
+   "vector": [
+    0,
+    0.5,
+    0.9
+   ],
+   "family": "rock & indie",
+   "override": {
+    "family": "indie dance"
+   }
+  },
+  "t09": {
+   "status": "no_preview",
+   "auto": {
+    "bpm": 128.0
+   },
+   "tags": [
+    "italian"
+   ]
+  },
+  "t10": {
+   "status": "pending"
+  },
+  "t11": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Techno": 0.6
+    },
+    "bpm": 70.5,
+    "key": "7A",
+    "energy": 6,
+    "moods": {
+     "dark": 0.9
+    },
+    "vocal": 0.2
+   },
+   "override": {
+    "styles_add": [
+     "Electronic---Breakbeat"
+    ],
+    "bpm": 141.0,
+    "moods_add": [
+     "hypnotic"
+    ],
+    "moods_remove": [
+     "dark"
+    ]
+   },
+   "vector": [
+    1,
+    0,
+    0
+   ],
+   "artists": [
+    "KANGDING RAY",
+    "Someone"
+   ],
+   "family": "techno"
+  },
+  "t12": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---House": 0.5,
+     "Electronic---Techno": 0.49
+    },
+    "bpm": 128.0,
+    "key": "10B",
+    "energy": 6,
+    "moods": {
+     "party": 0.7,
+     "happy": 0.6
+    },
+    "vocal": 0.5
+   },
+   "override": {
+    "styles_remove": [
+     "Electronic---House"
+    ]
+   },
+   "vector": [
+    0.7,
+    0.7,
+    0
+   ],
+   "tags": [
+    "minimal techno"
+   ],
+   "family": "house"
+  },
+  "t13": {
+   "status": "no_preview",
+   "override": {
+    "styles_add": [
+     "Electronic---Acid House"
+    ],
+    "bpm": 130.0,
+    "energy": 8,
+    "key": "4A",
+    "moods_add": [
+     "dark"
+    ],
+    "vocal": false
+   }
+  },
+  "t14": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Jazz---Fusion": 0.4,
+     "Funk / Soul---Funk": 0.4
+    },
+    "bpm": 100.0,
+    "key": "12B",
+    "energy": 1,
+    "moods": {
+     "happy": 0.49,
+     "uplifting": 0.5
+    },
+    "vocal": 0.49
+   },
+   "vector": [
+    0,
+    1,
+    0
+   ],
+   "family": "funk & soul"
+  },
+  "t15": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Techno": 0.7
+    },
+    "bpm": 64.0,
+    "key": "1B",
+    "energy": 10,
+    "moods": {
+     "aggressive": 0.6,
+     "dark": 0.6,
+     "energetic": 0.7
+    },
+    "vocal": 0.0
+   },
+   "vector": [
+    0.95,
+    0,
+    0.05
+   ],
+   "artists": [
+    "Kangding Ray"
+   ],
+   "family": "techno"
+  },
+  "t16": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Techno": 0.5,
+     "Rock---Industrial": 0.3
+    },
+    "bpm": 130.0,
+    "key": "11A",
+    "energy": 8,
+    "moods": {
+     "dark": 0.7
+    },
+    "vocal": 0.1
+   },
+   "override": {
+    "genres_remove": [
+     "Electronic"
+    ]
+   },
+   "vector": [
+    0.5,
+    0,
+    0.8
+   ],
+   "family": "techno"
+  },
+  "t17": {
+   "status": "tagged",
+   "auto": {
+    "styles": {
+     "Electronic---Hardcore": 0.8
+    },
+    "bpm": 150.0,
+    "key": "1A",
+    "energy": 9,
+    "moods": {
+     "energetic": 0.8
+    },
+    "vocal": 0.2
+   },
+   "override": {
+    "energy": 3,
+    "key": "12A",
+    "vocal": true
+   },
+   "vector": [
+    0.7,
+    0.3,
+    0.3
+   ],
+   "family": "breaks & bass"
+  }
+ },
+ "cases": [
+  {
+   "name": "empty query matches everything, untagged included",
+   "query": {},
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12",
+    "t13",
+    "t14",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 17
+  },
+  {
+   "name": "genre Electronic: strongest style decides, genre removal respected",
+   "query": {
+    "genres_include": [
+     "Electronic"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t04",
+    "t05",
+    "t07",
+    "t11",
+    "t12",
+    "t13",
+    "t15",
+    "t17"
+   ],
+   "count": 10
+  },
+  {
+   "name": "genre Rock includes track whose Electronic genre was removed",
+   "query": {
+    "genres_include": [
+     "Rock"
+    ]
+   },
+   "matches": [
+    "t03",
+    "t08",
+    "t16"
+   ],
+   "count": 3
+  },
+  {
+   "name": "two genres combine with OR",
+   "query": {
+    "genres_include": [
+     "Electronic",
+     "Rock"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t07",
+    "t08",
+    "t11",
+    "t12",
+    "t13",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 13
+  },
+  {
+   "name": "style Breakbeat: only where it is strongest, or user-added",
+   "query": {
+    "styles_include": [
+     "Electronic---Breakbeat"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t11"
+   ],
+   "count": 2
+  },
+  {
+   "name": "style Techno: added style beats auto, removed genre drops it",
+   "query": {
+    "styles_include": [
+     "Electronic---Techno"
+    ]
+   },
+   "matches": [
+    "t02",
+    "t12",
+    "t15"
+   ],
+   "count": 3
+  },
+  {
+   "name": "styles combine with OR",
+   "query": {
+    "styles_include": [
+     "Electronic---Breakbeat",
+     "Electronic---Hardcore"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t11",
+    "t17"
+   ],
+   "count": 3
+  },
+  {
+   "name": "genre and style groups combine with OR",
+   "query": {
+    "genres_include": [
+     "Rock"
+    ],
+    "styles_include": [
+     "Electronic---Techno"
+    ]
+   },
+   "matches": [
+    "t02",
+    "t03",
+    "t08",
+    "t12",
+    "t15",
+    "t16"
+   ],
+   "count": 6
+  },
+  {
+   "name": "removed style never matches",
+   "query": {
+    "styles_include": [
+     "Electronic---House"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "style Deep House",
+   "query": {
+    "styles_include": [
+     "Electronic---Deep House"
+    ]
+   },
+   "matches": [
+    "t05"
+   ],
+   "count": 1
+  },
+  {
+   "name": "tie on activation breaks by canonical label ascending (winner)",
+   "query": {
+    "styles_include": [
+     "Funk / Soul---Funk"
+    ]
+   },
+   "matches": [
+    "t14"
+   ],
+   "count": 1
+  },
+  {
+   "name": "tie on activation breaks by canonical label ascending (loser)",
+   "query": {
+    "styles_include": [
+     "Jazz---Fusion"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "genre with slash in its name",
+   "query": {
+    "genres_include": [
+     "Funk / Soul"
+    ]
+   },
+   "matches": [
+    "t14"
+   ],
+   "count": 1
+  },
+  {
+   "name": "style only from override on untagged track",
+   "query": {
+    "styles_include": [
+     "Electronic---Acid House"
+    ]
+   },
+   "matches": [
+    "t13"
+   ],
+   "count": 1
+  },
+  {
+   "name": "genre Hip Hop",
+   "query": {
+    "genres_include": [
+     "Hip Hop"
+    ]
+   },
+   "matches": [
+    "t06"
+   ],
+   "count": 1
+  },
+  {
+   "name": "genre exclude: untagged genre never matches",
+   "query": {
+    "genres_exclude": [
+     "Electronic"
+    ]
+   },
+   "matches": [
+    "t03",
+    "t06",
+    "t08",
+    "t14",
+    "t16"
+   ],
+   "count": 5
+  },
+  {
+   "name": "style exclude",
+   "query": {
+    "styles_exclude": [
+     "Electronic---Techno"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t11",
+    "t13",
+    "t14",
+    "t16",
+    "t17"
+   ],
+   "count": 12
+  },
+  {
+   "name": "genre include with style exclude",
+   "query": {
+    "genres_include": [
+     "Electronic"
+    ],
+    "styles_exclude": [
+     "Electronic---Techno"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t04",
+    "t05",
+    "t07",
+    "t11",
+    "t13",
+    "t17"
+   ],
+   "count": 7
+  },
+  {
+   "name": "bpm range, no half/double",
+   "query": {
+    "bpm": {
+     "min": 136,
+     "max": 142,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11"
+   ],
+   "count": 3
+  },
+  {
+   "name": "bpm range with half/double",
+   "query": {
+    "bpm": {
+     "min": 136,
+     "max": 142,
+     "half_double": true
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t11"
+   ],
+   "count": 4
+  },
+  {
+   "name": "bpm single value inclusive",
+   "query": {
+    "bpm": {
+     "min": 128,
+     "max": 128,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t09",
+    "t12"
+   ],
+   "count": 2
+  },
+  {
+   "name": "bpm single value with double",
+   "query": {
+    "bpm": {
+     "min": 128,
+     "max": 128,
+     "half_double": true
+    }
+   },
+   "matches": [
+    "t09",
+    "t12",
+    "t15"
+   ],
+   "count": 3
+  },
+  {
+   "name": "bpm low range with half",
+   "query": {
+    "bpm": {
+     "min": 60,
+     "max": 70,
+     "half_double": true
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t05",
+    "t09",
+    "t12",
+    "t13",
+    "t15",
+    "t16"
+   ],
+   "count": 9
+  },
+  {
+   "name": "bpm drum n bass range",
+   "query": {
+    "bpm": {
+     "min": 170,
+     "max": 180,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t04"
+   ],
+   "count": 1
+  },
+  {
+   "name": "bpm fractional bounds inclusive",
+   "query": {
+    "bpm": {
+     "min": 140.5,
+     "max": 141,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t11"
+   ],
+   "count": 1
+  },
+  {
+   "name": "bpm open top",
+   "query": {
+    "bpm": {
+     "min": 141,
+     "max": 200,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t04",
+    "t11",
+    "t17"
+   ],
+   "count": 3
+  },
+  {
+   "name": "energy 6-10 uses override",
+   "query": {
+    "energy": {
+     "min": 6,
+     "max": 10
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t08",
+    "t11",
+    "t12",
+    "t13",
+    "t15",
+    "t16"
+   ],
+   "count": 10
+  },
+  {
+   "name": "energy exactly 1",
+   "query": {
+    "energy": {
+     "min": 1,
+     "max": 1
+    }
+   },
+   "matches": [
+    "t14"
+   ],
+   "count": 1
+  },
+  {
+   "name": "energy 9-10 excludes overridden auto value",
+   "query": {
+    "energy": {
+     "min": 9,
+     "max": 10
+    }
+   },
+   "matches": [
+    "t03",
+    "t04",
+    "t15"
+   ],
+   "count": 3
+  },
+  {
+   "name": "energy 3 includes override",
+   "query": {
+    "energy": {
+     "min": 3,
+     "max": 3
+    }
+   },
+   "matches": [
+    "t07",
+    "t17"
+   ],
+   "count": 2
+  },
+  {
+   "name": "mood dark: threshold, override add and remove",
+   "query": {
+    "moods_include": [
+     "dark"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t13",
+    "t15",
+    "t16"
+   ],
+   "count": 6
+  },
+  {
+   "name": "moods combine with AND",
+   "query": {
+    "moods_include": [
+     "dark",
+     "hypnotic"
+    ]
+   },
+   "matches": [
+    "t02"
+   ],
+   "count": 1
+  },
+  {
+   "name": "mood added by override",
+   "query": {
+    "moods_include": [
+     "hypnotic"
+    ]
+   },
+   "matches": [
+    "t02",
+    "t11"
+   ],
+   "count": 2
+  },
+  {
+   "name": "mood exclude: unknown moods never match",
+   "query": {
+    "moods_exclude": [
+     "dark"
+    ]
+   },
+   "matches": [
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t11",
+    "t12",
+    "t14",
+    "t17"
+   ],
+   "count": 9
+  },
+  {
+   "name": "mood threshold 0.5 is inclusive",
+   "query": {
+    "moods_include": [
+     "uplifting"
+    ]
+   },
+   "matches": [
+    "t14"
+   ],
+   "count": 1
+  },
+  {
+   "name": "mood just below threshold is absent",
+   "query": {
+    "moods_include": [
+     "happy"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t12"
+   ],
+   "count": 2
+  },
+  {
+   "name": "mood include and exclude",
+   "query": {
+    "moods_include": [
+     "energetic"
+    ],
+    "moods_exclude": [
+     "aggressive"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t04",
+    "t17"
+   ],
+   "count": 3
+  },
+  {
+   "name": "key exact",
+   "query": {
+    "key": {
+     "camelot": "8A",
+     "compatible": false
+    }
+   },
+   "matches": [
+    "t01"
+   ],
+   "count": 1
+  },
+  {
+   "name": "key compatible: neighbours and relative",
+   "query": {
+    "key": {
+     "camelot": "8A",
+     "compatible": true
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t11"
+   ],
+   "count": 4
+  },
+  {
+   "name": "key compatible wraps 1 to 12",
+   "query": {
+    "key": {
+     "camelot": "1A",
+     "compatible": true
+    }
+   },
+   "matches": [
+    "t04",
+    "t05",
+    "t07",
+    "t15",
+    "t17"
+   ],
+   "count": 5
+  },
+  {
+   "name": "key compatible wraps 12 to 1",
+   "query": {
+    "key": {
+     "camelot": "12A",
+     "compatible": true
+    }
+   },
+   "matches": [
+    "t04",
+    "t05",
+    "t14",
+    "t16",
+    "t17"
+   ],
+   "count": 5
+  },
+  {
+   "name": "key exact respects override",
+   "query": {
+    "key": {
+     "camelot": "1A",
+     "compatible": false
+    }
+   },
+   "matches": [
+    "t04"
+   ],
+   "count": 1
+  },
+  {
+   "name": "key compatible major ring",
+   "query": {
+    "key": {
+     "camelot": "12B",
+     "compatible": true
+    }
+   },
+   "matches": [
+    "t05",
+    "t14",
+    "t15",
+    "t17"
+   ],
+   "count": 4
+  },
+  {
+   "name": "vocal: threshold 0.5 inclusive, override wins",
+   "query": {
+    "vocal": "vocal"
+   },
+   "matches": [
+    "t03",
+    "t05",
+    "t06",
+    "t08",
+    "t12",
+    "t17"
+   ],
+   "count": 6
+  },
+  {
+   "name": "instrumental",
+   "query": {
+    "vocal": "instrumental"
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t04",
+    "t07",
+    "t11",
+    "t13",
+    "t14",
+    "t15",
+    "t16"
+   ],
+   "count": 9
+  },
+  {
+   "name": "preset Dark 138+ returns nothing on this library",
+   "query": {
+    "styles_include": [
+     "Electronic---Breakbeat",
+     "Electronic---Hardcore"
+    ],
+    "bpm": {
+     "min": 136,
+     "max": 142,
+     "half_double": true
+    },
+    "energy": {
+     "min": 6,
+     "max": 10
+    },
+    "moods_include": [
+     "dark",
+     "hypnotic"
+    ],
+    "key": {
+     "camelot": "8A",
+     "compatible": true
+    }
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "styles + bpm + energy",
+   "query": {
+    "styles_include": [
+     "Electronic---Breakbeat",
+     "Electronic---Hardcore"
+    ],
+    "bpm": {
+     "min": 136,
+     "max": 142,
+     "half_double": true
+    },
+    "energy": {
+     "min": 6,
+     "max": 10
+    }
+   },
+   "matches": [
+    "t01",
+    "t11"
+   ],
+   "count": 2
+  },
+  {
+   "name": "genre + bpm",
+   "query": {
+    "genres_include": [
+     "Electronic"
+    ],
+    "bpm": {
+     "min": 120,
+     "max": 135,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t05",
+    "t12",
+    "t13"
+   ],
+   "count": 3
+  },
+  {
+   "name": "genre + energy + mood + instrumental",
+   "query": {
+    "genres_include": [
+     "Electronic"
+    ],
+    "energy": {
+     "min": 5,
+     "max": 10
+    },
+    "moods_include": [
+     "dark"
+    ],
+    "vocal": "instrumental"
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t13",
+    "t15"
+   ],
+   "count": 4
+  },
+  {
+   "name": "genre + vocal + compatible key",
+   "query": {
+    "genres_include": [
+     "Rock"
+    ],
+    "vocal": "vocal",
+    "key": {
+     "camelot": "8B",
+     "compatible": true
+    }
+   },
+   "matches": [
+    "t03"
+   ],
+   "count": 1
+  },
+  {
+   "name": "bpm only: no_preview track with Deezer bpm matches",
+   "query": {
+    "bpm": {
+     "min": 120,
+     "max": 130,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t05",
+    "t09",
+    "t12",
+    "t13",
+    "t16"
+   ],
+   "count": 5
+  },
+  {
+   "name": "a full-range energy constraint still requires an energy tag",
+   "query": {
+    "bpm": {
+     "min": 120,
+     "max": 130,
+     "half_double": false
+    },
+    "energy": {
+     "min": 1,
+     "max": 10
+    }
+   },
+   "matches": [
+    "t05",
+    "t12",
+    "t13",
+    "t16"
+   ],
+   "count": 4
+  },
+  {
+   "name": "preset Run 160",
+   "query": {
+    "styles_include": [
+     "Electronic---Drum n Bass",
+     "Electronic---Hardcore"
+    ],
+    "bpm": {
+     "min": 156,
+     "max": 176,
+     "half_double": false
+    },
+    "energy": {
+     "min": 7,
+     "max": 10
+    },
+    "moods_include": [
+     "energetic"
+    ]
+   },
+   "matches": [
+    "t04"
+   ],
+   "count": 1
+  },
+  {
+   "name": "mood include with unrelated exclude",
+   "query": {
+    "moods_include": [
+     "dreamy"
+    ],
+    "moods_exclude": [
+     "happy"
+    ]
+   },
+   "matches": [
+    "t07",
+    "t08"
+   ],
+   "count": 2
+  },
+  {
+   "name": "preset Sunday 90-110",
+   "query": {
+    "styles_include": [
+     "Electronic---Trip Hop",
+     "Electronic---Downtempo",
+     "Rock---Shoegaze",
+     "Hip Hop---Boom Bap"
+    ],
+    "bpm": {
+     "min": 90,
+     "max": 110,
+     "half_double": false
+    },
+    "energy": {
+     "min": 1,
+     "max": 5
+    }
+   },
+   "matches": [
+    "t06",
+    "t07"
+   ],
+   "count": 2
+  },
+  {
+   "name": "style include + genre exclude",
+   "query": {
+    "styles_include": [
+     "Electronic---Techno"
+    ],
+    "genres_exclude": [
+     "Rock"
+    ]
+   },
+   "matches": [
+    "t02",
+    "t12",
+    "t15"
+   ],
+   "count": 3
+  },
+  {
+   "name": "limit samples from all matches",
+   "query": {
+    "limit": 5
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12",
+    "t13",
+    "t14",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 5
+  },
+  {
+   "name": "limit samples from genre matches",
+   "query": {
+    "genres_include": [
+     "Electronic"
+    ],
+    "limit": 3
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t04",
+    "t05",
+    "t07",
+    "t11",
+    "t12",
+    "t13",
+    "t15",
+    "t17"
+   ],
+   "count": 3
+  },
+  {
+   "name": "limit above match count returns all matches",
+   "query": {
+    "styles_include": [
+     "Electronic---Breakbeat"
+    ],
+    "limit": 100
+   },
+   "matches": [
+    "t01",
+    "t11"
+   ],
+   "count": 2
+  },
+  {
+   "name": "default limit is 100",
+   "query": {},
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t09",
+    "t10",
+    "t11",
+    "t12",
+    "t13",
+    "t14",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 17
+  },
+  {
+   "name": "vibe: seeds + artist seeds (case-insensitive), top 25 %",
+   "query": {
+    "vibes_include": [
+     "hyp"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11",
+    "t15"
+   ],
+   "count": 4
+  },
+  {
+   "name": "vibe: excluded track removed, no backfill",
+   "query": {
+    "vibes_include": [
+     "hyp_x"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t11",
+    "t15"
+   ],
+   "count": 3
+  },
+  {
+   "name": "vibe: two seeds",
+   "query": {
+    "vibes_include": [
+     "sun"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t12",
+    "t14"
+   ],
+   "count": 4
+  },
+  {
+   "name": "vibes combine with AND",
+   "query": {
+    "vibes_include": [
+     "hyp",
+     "sun"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "vibe + bpm (override bpm counts)",
+   "query": {
+    "vibes_include": [
+     "hyp"
+    ],
+    "bpm": {
+     "min": 136,
+     "max": 142,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11"
+   ],
+   "count": 3
+  },
+  {
+   "name": "vibe from artist seeds only, k = ceil(0.1 x 14) = 2",
+   "query": {
+    "vibes_include": [
+     "kr"
+    ]
+   },
+   "matches": [
+    "t11",
+    "t15"
+   ],
+   "count": 2
+  },
+  {
+   "name": "vibe share 1.0 = every track with a vector",
+   "query": {
+    "vibes_include": [
+     "all"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t11",
+    "t12",
+    "t14",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 14
+  },
+  {
+   "name": "unknown vibe id matches nothing",
+   "query": {
+    "vibes_include": [
+     "nope"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "vibe with no seeds matches nothing",
+   "query": {
+    "vibes_include": [
+     "empty"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "vibe whose only seed has no vector matches nothing",
+   "query": {
+    "vibes_include": [
+     "ghost"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "vibe + vocal",
+   "query": {
+    "vibes_include": [
+     "sun"
+    ],
+    "vocal": "vocal"
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t12"
+   ],
+   "count": 3
+  },
+  {
+   "name": "tags: synonym on track side (Italy, italian)",
+   "query": {
+    "tags_include": [
+     "italian"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t09"
+   ],
+   "count": 3
+  },
+  {
+   "name": "tags: synonym on query side",
+   "query": {
+    "tags_include": [
+     "Italia"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t09"
+   ],
+   "count": 3
+  },
+  {
+   "name": "tags: several terms combine with AND",
+   "query": {
+    "tags_include": [
+     "italian",
+     "hip hop"
+    ]
+   },
+   "matches": [
+    "t06"
+   ],
+   "count": 1
+  },
+  {
+   "name": "tags: normalised punctuation",
+   "query": {
+    "tags_include": [
+     "HIP_HOP"
+    ]
+   },
+   "matches": [
+    "t06"
+   ],
+   "count": 1
+  },
+  {
+   "name": "tags: untagged tracks never match",
+   "query": {
+    "tags_include": [
+     "disco"
+    ]
+   },
+   "matches": [
+    "t05"
+   ],
+   "count": 1
+  },
+  {
+   "name": "tags + bpm",
+   "query": {
+    "tags_include": [
+     "minimal techno"
+    ],
+    "bpm": {
+     "min": 125,
+     "max": 140,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t01",
+    "t12"
+   ],
+   "count": 2
+  },
+  {
+   "name": "tags: brazilian via Brasil",
+   "query": {
+    "tags_include": [
+     "brazil"
+    ]
+   },
+   "matches": [
+    "t07"
+   ],
+   "count": 1
+  },
+  {
+   "name": "vibe seeded by tags: seeds t01,t02 then top 25 %",
+   "query": {
+    "vibes_include": [
+     "comm"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11",
+    "t15"
+   ],
+   "count": 4
+  },
+  {
+   "name": "vibe seeded by a tag nobody has matches nothing",
+   "query": {
+    "vibes_include": [
+     "comm_none"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "family: consensus family, not the audio genre (t03 audio Rock)",
+   "query": {
+    "families_include": [
+     "techno"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t11",
+    "t15",
+    "t16"
+   ],
+   "count": 6
+  },
+  {
+   "name": "families combine with OR",
+   "query": {
+    "families_include": [
+     "house",
+     "hip hop"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t12"
+   ],
+   "count": 3
+  },
+  {
+   "name": "family override wins",
+   "query": {
+    "families_include": [
+     "indie dance"
+    ]
+   },
+   "matches": [
+    "t08"
+   ],
+   "count": 1
+  },
+  {
+   "name": "overridden family no longer matches",
+   "query": {
+    "families_include": [
+     "rock & indie"
+    ]
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "family OR style in one group",
+   "query": {
+    "families_include": [
+     "techno"
+    ],
+    "styles_include": [
+     "Electronic---Drum n Bass"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t11",
+    "t15",
+    "t16"
+   ],
+   "count": 7
+  },
+  {
+   "name": "family + bpm",
+   "query": {
+    "families_include": [
+     "house"
+    ],
+    "bpm": {
+     "min": 120,
+     "max": 130,
+     "half_double": false
+    }
+   },
+   "matches": [
+    "t05",
+    "t12"
+   ],
+   "count": 2
+  },
+  {
+   "name": "family + genre exclude",
+   "query": {
+    "families_include": [
+     "techno"
+    ],
+    "genres_exclude": [
+     "Rock"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11",
+    "t15"
+   ],
+   "count": 4
+  },
+  {
+   "name": "vibe: excluded track is a negative example (t04 drops, t08 enters)",
+   "query": {
+    "vibes_include": [
+     "negx"
+    ]
+   },
+   "matches": [
+    "t05",
+    "t06",
+    "t08",
+    "t12",
+    "t14"
+   ],
+   "count": 5
+  },
+  {
+   "name": "vibe: tag seed that doesn't sound like the vibe is pruned",
+   "query": {
+    "vibes_include": [
+     "tagp"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t11",
+    "t15"
+   ],
+   "count": 4
+  },
+  {
+   "name": "family_styles: a style counts only under its picked family (t12 is House with a Techno style)",
+   "query": {
+    "family_styles": {
+     "house": [
+      "Electronic---Techno"
+     ]
+    }
+   },
+   "matches": [
+    "t12"
+   ],
+   "count": 1
+  },
+  {
+   "name": "family_styles: same style under another family",
+   "query": {
+    "family_styles": {
+     "techno": [
+      "Electronic---Techno"
+     ]
+    }
+   },
+   "matches": [
+    "t02",
+    "t15"
+   ],
+   "count": 2
+  },
+  {
+   "name": "family_styles OR families_include in one group",
+   "query": {
+    "families_include": [
+     "hip hop"
+    ],
+    "family_styles": {
+     "house": [
+      "Electronic---Deep House"
+     ]
+    }
+   },
+   "matches": [
+    "t05",
+    "t06"
+   ],
+   "count": 2
+  },
+  {
+   "name": "family_styles with an empty list matches nothing extra",
+   "query": {
+    "family_styles": {
+     "house": []
+    }
+   },
+   "matches": [],
+   "count": 0
+  },
+  {
+   "name": "vibe energy band: seeds 8,9,8 keep members with energy 7-10 (t17's override 3 drops it)",
+   "query": {
+    "vibes_include": [
+     "nrg"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t15",
+    "t16"
+   ],
+   "count": 6
+  },
+  {
+   "name": "vibe energy band: seed t14 (energy 1) is an outlier, ignored for the band but still a member",
+   "query": {
+    "vibes_include": [
+     "nrg_out"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t14",
+    "t15",
+    "t16"
+   ],
+   "count": 7
+  },
+  {
+   "name": "vibe energy band needs 3 seeds with energy: two seeds keep every track with a vector",
+   "query": {
+    "vibes_include": [
+     "nrg2"
+    ]
+   },
+   "matches": [
+    "t01",
+    "t02",
+    "t03",
+    "t04",
+    "t05",
+    "t06",
+    "t07",
+    "t08",
+    "t11",
+    "t12",
+    "t14",
+    "t15",
+    "t16",
+    "t17"
+   ],
+   "count": 14
+  }
+ ],
+ "vibes": {
+  "hyp": {
+   "name": "Hypnotic",
+   "seeds": [
+    "t01"
+   ],
+   "artists": [
+    "Kangding Ray"
+   ],
+   "exclude": [],
+   "share": 0.25
+  },
+  "hyp_x": {
+   "name": "Hypnotic minus t02",
+   "seeds": [
+    "t01"
+   ],
+   "artists": [
+    "Kangding Ray"
+   ],
+   "exclude": [
+    "t02"
+   ],
+   "share": 0.25
+  },
+  "sun": {
+   "name": "Sunny",
+   "seeds": [
+    "t05",
+    "t14"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 0.25
+  },
+  "kr": {
+   "name": "Artist only",
+   "seeds": [],
+   "artists": [
+    "kangding ray"
+   ],
+   "exclude": [],
+   "share": 0.1
+  },
+  "all": {
+   "name": "Everything with a vector",
+   "seeds": [
+    "t07"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 1.0
+  },
+  "empty": {
+   "name": "No seeds",
+   "seeds": [],
+   "artists": [],
+   "exclude": [],
+   "share": 0.5
+  },
+  "ghost": {
+   "name": "Seed without a vector",
+   "seeds": [
+    "t13"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 0.5
+  },
+  "comm": {
+   "name": "Community hypnotic",
+   "seeds": [],
+   "artists": [],
+   "seed_tags": [
+    "dub techno",
+    "Deep-Techno"
+   ],
+   "exclude": [],
+   "share": 0.25
+  },
+  "comm_none": {
+   "name": "Tag nobody has",
+   "seeds": [],
+   "artists": [],
+   "seed_tags": [
+    "polka"
+   ],
+   "exclude": [],
+   "share": 0.25
+  },
+  "negx": {
+   "name": "Exclusion pulls neighbours down",
+   "seeds": [
+    "t14"
+   ],
+   "artists": [],
+   "exclude": [
+    "t01"
+   ],
+   "share": 0.35
+  },
+  "tagp": {
+   "name": "Off-sound tag seed is pruned",
+   "seeds": [
+    "t11"
+   ],
+   "artists": [],
+   "seed_tags": [
+    "downtempo"
+   ],
+   "exclude": [],
+   "share": 0.25
+  },
+  "nrg": {
+   "name": "Energy band from 3 seeds",
+   "seeds": [
+    "t02",
+    "t03",
+    "t16"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 1.0
+  },
+  "nrg_out": {
+   "name": "Energy band, outlier seed ignored",
+   "seeds": [
+    "t02",
+    "t03",
+    "t16",
+    "t14"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 1.0
+  },
+  "nrg2": {
+   "name": "Two seeds: no energy band",
+   "seeds": [
+    "t02",
+    "t03"
+   ],
+   "artists": [],
+   "exclude": [],
+   "share": 1.0
+  }
+ }
+}

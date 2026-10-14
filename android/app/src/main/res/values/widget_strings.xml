@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget picker (Swift: configurationDisplayName / description) -->
+    <string name="widget_preset_name">Preset</string>
+    <string name="widget_preset_description">One tap fills Now with a preset.</string>
+    <string name="widget_grid_name">Presets</string>
+    <string name="widget_grid_description">Your four widget presets. Tap one to fill Now.</string>
+    <string name="widget_config_label">Choose preset</string>
+    <string name="share_label">Crate</string>
+</resources>

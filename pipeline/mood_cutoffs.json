@@ -1,0 +1,19 @@
+{
+ "description": "Per-mood cut-off on the model's raw score (auto.moods_raw). A track has the mood when raw >= cut-off. Edit, then run `crate moods` to re-apply and see examples. null = mood not tagged automatically (still addable by hand).",
+ "cutoffs": {
+  "dark": 0.10,
+  "energetic": 0.15,
+  "melancholic": null,
+  "dreamy": 0.07,
+  "uplifting": 0.07,
+  "relaxing": 0.90,
+  "epic": null,
+  "romantic": 0.07,
+  "sad": 0.45,
+  "happy": 0.80,
+  "party": 0.97,
+  "meditative": 0.08,
+  "groovy": null,
+  "aggressive": 0.45
+ }
+}

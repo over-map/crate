@@ -1,0 +1,49 @@
+# Runs in the PRIVATE data repo (over-map/crate-data). The code comes from the public repo.
+name: migrate
+# One-time, destructive. Run "dry-run" first; it commits the backup and prints a confirmation code.
+# Then run "execute" the same day with that code.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [dry-run, execute]
+        default: dry-run
+      confirm:
+        description: Confirmation code from the dry run (execute only)
+        default: ""
+concurrency: { group: crate-data, cancel-in-progress: false }
+permissions: { contents: write }
+env:
+  CRATE_CODE_REPO: ${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}
+  SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+  GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the code (public repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { repository: "${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}" }
+      - name: Check out the data (this private repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { path: private }
+      - name: Link the data into the code checkout
+        run: ln -s private/data data && ln -s private/backup backup
+      - uses: ./.github/actions/setup
+      - name: Back up and plan
+        if: inputs.mode == 'dry-run'
+        working-directory: pipeline
+        run: uv run crate migrate | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: ./.github/actions/commit
+        if: inputs.mode == 'dry-run'
+        with: { directory: private, message: "migrate: playlist backup", paths: backup }
+      - name: Execute
+        if: inputs.mode == 'execute'
+        working-directory: pipeline
+        run: |
+          ls ../backup/playlists-*.json > /dev/null || { echo "No committed backup. Run the dry run first."; exit 1; }
+          uv run crate migrate --execute --confirm "${{ inputs.confirm }}" | tee -a "$GITHUB_STEP_SUMMARY"

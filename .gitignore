@@ -1,0 +1,34 @@
+# Local caches: models (CC BY-NC-SA, not redistributed), HTTP cache, raw embeddings, checkpoints
+.cache/
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+# Secrets: never commit
+.env
+*.p12
+*.mobileprovision
+# Audio never lives in the repo
+*.mp3
+*.wav
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.build/
+.swiftpm/
+*.ipa
+.DS_Store
+
+# Demo copy of data/ for the Simulator (make ios-demo)
+ios/Crate/Demo/
+
+# Built app packages (make ios-ipa)
+dist/
+
+# Personal data lives in the private data repo (over-map/crate-data); locally these are links to it
+/data
+/backup
+/heartbeat

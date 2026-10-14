@@ -1,0 +1,30 @@
+# Runs in the PRIVATE data repo (over-map/crate-data). The code comes from the public repo.
+name: contract
+# Weekly API contract smoke test: are the fields Crate reads still there?
+on:
+  schedule: [{ cron: "0 7 * * 3" }]
+  workflow_dispatch:
+permissions: { contents: read }
+env:
+  CRATE_CODE_REPO: ${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}
+  SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+  LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+  NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the code (public repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { repository: "${{ vars.CRATE_CODE_REPO || 'over-map/crate' }}" }
+      - name: Check out the data (this private repo)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with: { path: private }
+      - name: Link the data into the code checkout
+        run: ln -s private/data data && ln -s private/backup backup
+      - uses: ./.github/actions/setup
+      - working-directory: pipeline
+        run: uv run crate contract

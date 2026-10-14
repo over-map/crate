@@ -1,0 +1,70 @@
+{
+ "schema": 1,
+ "description": "Tag normalisation shared by Python (crate/tags.py) and Swift (CrateKit Tags). Steps: Unicode NFKD, drop combining marks, lower-case, remove apostrophes (' and ’), '&' -> ' and ', each of - _ / . , replaced by a space, collapse whitespace, trim; then map through `synonyms` (exact match on the normalised string).",
+ "synonyms": {
+  "italy": "italian",
+  "italiana": "italian",
+  "italiano": "italian",
+  "italia": "italian",
+  "brazil": "brazilian",
+  "brasil": "brazilian",
+  "brasileiro": "brazilian",
+  "germany": "german",
+  "deutsch": "german",
+  "france": "french",
+  "francais": "french",
+  "netherlands": "dutch",
+  "holland": "dutch",
+  "uk": "british",
+  "england": "british",
+  "usa": "american",
+  "hiphop": "hip hop",
+  "rap": "hip hop",
+  "drum n bass": "drum and bass",
+  "dnb": "drum and bass",
+  "chill out": "chillout",
+  "chill": "chillout",
+  "nu disco": "nu disco",
+  "nudisco": "nu disco",
+  "italo": "italo disco",
+  "deep tech": "deep techno"
+ },
+ "cases": [
+  {
+   "in": "Italy",
+   "out": "italian"
+  },
+  {
+   "in": "  Hip-Hop ",
+   "out": "hip hop"
+  },
+  {
+   "in": "Drum & Bass",
+   "out": "drum and bass"
+  },
+  {
+   "in": "Drum'n'Bass",
+   "out": "drumnbass"
+  },
+  {
+   "in": "Música Popular",
+   "out": "musica popular"
+  },
+  {
+   "in": "Techno (Raw / Deep / Hypnotic)",
+   "out": "techno (raw deep hypnotic)"
+  },
+  {
+   "in": "nu_disco",
+   "out": "nu disco"
+  },
+  {
+   "in": "BRASIL",
+   "out": "brazilian"
+  },
+  {
+   "in": "",
+   "out": ""
+  }
+ ]
+}

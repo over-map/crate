@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: uv
+    directory: /pipeline
+    schedule: { interval: monthly }
+    groups: { python: { patterns: ["*"] } }
+    ignore:
+      # Model/analysis upgrades retag the whole library: bump by hand after `crate report` before/after.
+      - dependency-name: essentia-tensorflow
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }
+    groups: { actions: { patterns: ["*"] } }
+  - package-ecosystem: swift
+    directory: /ios/CrateKit
+    schedule: { interval: monthly }

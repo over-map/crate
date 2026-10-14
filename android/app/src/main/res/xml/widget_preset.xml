@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small widget: one preset (Crate Widgets 4a, 4c–4g). Configuration is optional: a new widget starts on the
+     first "In widget" preset; long-press › Reconfigure picks another. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="110dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:updatePeriodMillis="86400000"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:configure="com.overmap.crate.widget.PresetConfigActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
+    android:previewImage="@drawable/widget_preview_preset"
+    android:description="@string/widget_preset_description" />

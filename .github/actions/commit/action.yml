@@ -1,0 +1,30 @@
+name: Commit data
+description: Commit changed data/ (and docs/ reports), rebasing on top of app writes, plus a 30-day keepalive
+inputs:
+  message:
+    required: true
+  paths:
+    default: data docs backup
+  directory:
+    description: Git checkout to commit in (the data repo checkout, when the code is checked out separately)
+    default: "."
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      working-directory: ${{ inputs.directory }}
+      run: |
+        git config user.name "crate-bot"
+        git config user.email "crate-bot@users.noreply.github.com"
+        # Keep scheduled workflows alive: GitHub disables them after 60 days without activity.
+        last=$(git log -1 --format=%ct)
+        if [ $(( $(date +%s) - last )) -gt $(( 30 * 86400 )) ]; then date -u +%FT%TZ > heartbeat; git add heartbeat; fi
+        git add ${{ inputs.paths }} 2>/dev/null || true
+        if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+        git commit -q -m "${{ inputs.message }}"
+        for i in 1 2 3; do
+          git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+          sleep $((i * 5))
+        done
+        exit 1
